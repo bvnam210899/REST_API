@@ -1,5 +1,8 @@
 package com.example.student_manager.model.entity;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -24,6 +27,7 @@ public class StudentDTO {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private ClassDTO classDTO;
 
     public ClassDTO getClassDTO() {

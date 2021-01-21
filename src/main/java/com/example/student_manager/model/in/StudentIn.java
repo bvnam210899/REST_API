@@ -1,5 +1,7 @@
 package com.example.student_manager.model.in;
 
+import com.example.student_manager.model.entity.ClassDTO;
+
 import java.util.Date;
 
 public class StudentIn {
@@ -10,6 +12,16 @@ public class StudentIn {
     private String address;
 
     private String phone_number;
+
+    private ClassDTO classDTO;
+
+    public ClassDTO getClassDTO() {
+        return classDTO;
+    }
+
+    public void setClassDTO(ClassDTO classDTO) {
+        this.classDTO = classDTO;
+    }
 
     public StudentIn() {
     }

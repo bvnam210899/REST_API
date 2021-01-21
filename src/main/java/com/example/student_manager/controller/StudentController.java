@@ -20,15 +20,17 @@ public class StudentController {
     }
 
     @GetMapping("/get2/{id}")
-    public List<StudentDTO> getByIDFilter(@PathVariable("id") int id) { return service.getByIDFilter(id);}
+    public List<StudentDTO> getByIDFilter(@PathVariable("id") int id) {
+        return service.getByIDFilter(id);
+    }
 
-    @GetMapping("/get/{id}")
-    public List<StudentDTO> getByClassId(@PathVariable("id") int id) { return service.getByID(id);}
+    @GetMapping("/class/{id}")
+    public List<StudentDTO> getByClassId(@PathVariable("id") int id) {
+        return service.getByID(id);
+    }
 
     @PostMapping
-    public StudentDTO create(@RequestBody StudentIn studentIn) {
-        return service.create(studentIn);
-    }
+    public StudentDTO create(@RequestBody StudentIn studentIn) { return service.create(studentIn); }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {

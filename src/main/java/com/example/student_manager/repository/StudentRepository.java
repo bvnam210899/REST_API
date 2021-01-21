@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository<StudentDTO, Integer> {
     @Query("SELECT s FROM StudentDTO s WHERE s.classDTO.id = :id")
-    List<StudentDTO> findStudentsByNameQuery(@Param("id") int id);
+    List<StudentDTO> findStudentsByClassID(@Param("id") int id);
 }
