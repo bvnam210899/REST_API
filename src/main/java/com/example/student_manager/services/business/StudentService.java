@@ -19,9 +19,9 @@ public class StudentService {
     @Autowired
     private StudentRepository repository;
 
-    private StudentInValidator studentInValidator = new StudentInValidator();
+    private final StudentInValidator studentInValidator = new StudentInValidator();
 
-    private StudentMappers studentMappers = new StudentMappers();
+    private final StudentMappers studentMappers = new StudentMappers();
 
     public List<StudentDTO> read() {
 
