@@ -9,24 +9,25 @@ import org.springframework.web.context.request.WebRequest;
 @RestControllerAdvice
 public class CustomException {
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorDetails> handlerNotFoundException(NotFoundException ex, WebRequest request) {
+    public ResponseEntity<?> handlerNotFoundException(NotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(HttpStatus.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InternalException.class)
-    public ResponseEntity<ErrorDetails> handlerInternalException(InternalException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler(EmptyException.class)
+    public ResponseEntity<?> handlerEmptyException(EmptyException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.NO_CONTENT, ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler(EmptyException.class)
-    public ResponseEntity<ErrorDetails> handlerEmptyException(EmptyException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler(NullException.class)
+    public ResponseEntity<?> handlerNullException(NullException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.NO_CONTENT, ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NO_CONTENT);
     }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDetails> handlerAllException(Exception ex, WebRequest request) {
+    public ResponseEntity<?> handlerAllException(Exception ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }

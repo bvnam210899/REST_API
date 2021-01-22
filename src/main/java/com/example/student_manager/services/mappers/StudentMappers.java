@@ -10,25 +10,30 @@ import java.util.stream.Collectors;
 
 public class StudentMappers {
     public List<StudentDTO> toStudentDTO(List<StudentEntity> studentEntity) {
-//        StudentDTO studentDTO = new StudentDTO();
-//
-//        studentDTO.setName(studentEntity.getName());
-//        studentDTO.setBirthday(studentEntity.getBirthday());
-//        studentDTO.setAddress(studentEntity.getAddress());
-//        studentDTO.setPhone_number(studentEntity.getPhone_number());
-//
-//        return studentDTO;
         return studentEntity.stream()
                 .map(s -> {
                     StudentDTO studentDTO = new StudentDTO();
+                    studentDTO.setId(s.getId());
                     studentDTO.setName(s.getName());
                     studentDTO.setAddress(s.getAddress());
                     studentDTO.setBirthday(s.getBirthday());
                     studentDTO.setPhone_number(s.getPhone_number());
+                    studentDTO.setClassEntity(s.getClassDTO());
 
                     return studentDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    public StudentDTO toStudentDTO(StudentEntity studentEntity) {
+        StudentDTO studentDTO = new StudentDTO();
+
+        studentDTO.setName(studentEntity.getName());
+        studentDTO.setBirthday(studentEntity.getBirthday());
+        studentDTO.setAddress(studentEntity.getAddress());
+        studentDTO.setPhone_number(studentEntity.getPhone_number());
+
+        return studentDTO;
     }
 
     public void mapStudentIn(StudentEntity studentEntity, StudentIn studentIn){

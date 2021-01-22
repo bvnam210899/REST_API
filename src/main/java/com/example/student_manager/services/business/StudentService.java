@@ -2,6 +2,7 @@ package com.example.student_manager.services.business;
 
 import com.example.student_manager.exceptions.EmptyException;
 import com.example.student_manager.exceptions.NotFoundException;
+import com.example.student_manager.models.dto.StudentDTO;
 import com.example.student_manager.models.entities.StudentEntity;
 import com.example.student_manager.models.in.StudentIn;
 import com.example.student_manager.repositories.StudentRepository;
@@ -22,14 +23,16 @@ public class StudentService {
 
     private StudentMappers studentMappers = new StudentMappers();
 
-    public List<StudentEntity> read() {
-        return repository.findAll();
+    public List<StudentDTO> read() {
+
+        return studentMappers.toStudentDTO(repository.findAll());
     }
 
-    public StudentEntity create(StudentIn studentIn) throws Exception {
+    public StudentDTO create(StudentIn studentIn) throws EmptyException {
         studentInValidator.NullStudent(studentIn);
         StudentEntity studentEntity = studentMappers.toStudentEntity(studentIn);
-        return repository.save(studentEntity);
+
+        return studentMappers.toStudentDTO(repository.save(studentEntity));
     }
 
     public String delete(int id) throws NotFoundException {
@@ -42,16 +45,16 @@ public class StudentService {
         return "success";
     }
 
-    public StudentEntity edit(StudentIn studentIn, int id) throws NotFoundException {
-        StudentEntity student = repository.findById(id).orElse(null);
-        if (student == null) {
+    public StudentDTO edit(StudentIn studentIn, int id) throws NotFoundException {
+        StudentEntity studentEntity = repository.findById(id).orElse(null);
+        if (studentEntity == null) {
             throw new NotFoundException("Id not valid");
         }
 
-        return repository.save(studentMappers.toStudentEntity(studentIn, id));
+        return studentMappers.toStudentDTO(repository.save(studentMappers.toStudentEntity(studentIn, id)));
     }
 
-    public List<StudentEntity> getByID(int id) {
-        return repository.findStudentsByClassID(id);
+    public List<StudentDTO> getByID(int id) {
+        return studentMappers.toStudentDTO(repository.findStudentsByClassID(id));
     }
 }

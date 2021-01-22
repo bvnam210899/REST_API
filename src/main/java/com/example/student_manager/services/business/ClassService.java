@@ -1,6 +1,8 @@
 package com.example.student_manager.services.business;
 
+import com.example.student_manager.exceptions.EmptyException;
 import com.example.student_manager.exceptions.NotFoundException;
+import com.example.student_manager.models.dto.ClassDTO;
 import com.example.student_manager.models.entities.ClassEntity;
 import com.example.student_manager.models.in.ClassIn;
 import com.example.student_manager.repositories.ClassRepository;
@@ -21,14 +23,15 @@ public class ClassService {
 
     private ClassEntityValidator classEntityValidator = new ClassEntityValidator();
 
-    public List<ClassEntity> read() {
-        return repository.findAll();
+    public List<ClassDTO> read() {
+        return classMappers.toClassDTO(repository.findAll());
     }
 
-    public ClassEntity create(ClassIn classIn) {
+    public ClassDTO create(ClassIn classIn) throws EmptyException {
 
+        classEntityValidator.NullClass(classIn);
         ClassEntity classEntity = classMappers.toClassDTO(classIn);
-        return repository.save(classEntity);
+        return classMappers.toClassDTO(repository.save(classEntity));
     }
 
     public String delete(int id) throws NotFoundException {
@@ -42,12 +45,12 @@ public class ClassService {
         return "Success !";
     }
 
-    public ClassEntity edit(ClassIn classIn, int id) throws NotFoundException {
+    public ClassDTO edit(ClassIn classIn, int id) throws NotFoundException {
         ClassEntity classEntity = repository.findById(id).orElse(null);
         if(classEntity == null) {
             throw new NotFoundException("id not valid");
         }
 
-        return repository.save(classMappers.toClassDTO(classIn, id));
+        return classMappers.toClassDTO(repository.save(classEntity));
     }
 }

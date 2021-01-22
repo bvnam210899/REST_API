@@ -1,6 +1,7 @@
 package com.example.student_manager.models.in;
 
 public class ClassIn {
+
     private String name;
 
     public ClassIn() {}

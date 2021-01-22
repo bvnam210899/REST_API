@@ -1,9 +1,8 @@
 package com.example.student_manager.controllers;
 
 import com.example.student_manager.exceptions.EmptyException;
-import com.example.student_manager.exceptions.InternalException;
 import com.example.student_manager.exceptions.NotFoundException;
-import com.example.student_manager.models.entities.StudentEntity;
+import com.example.student_manager.models.dto.StudentDTO;
 import com.example.student_manager.models.in.StudentIn;
 import com.example.student_manager.services.business.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +18,17 @@ public class StudentController {
     private StudentService service;
 
     @GetMapping("/students")
-    public ResponseEntity<List<StudentEntity>> read() {
+    public ResponseEntity<List<StudentDTO>> read() {
         return ResponseEntity.ok(service.read());
     }
 
     @GetMapping("/students/{id}/classes")
-    public ResponseEntity<List<StudentEntity>> getByClassId(@PathVariable("id") int id) {
+    public ResponseEntity<List<StudentDTO>> getByClassId(@PathVariable("id") int id) {
         return ResponseEntity.ok(service.getByID(id));
     }
 
-    @PostMapping
-    public ResponseEntity<StudentEntity> create(@RequestBody StudentIn studentIn) throws Exception {
+    @PostMapping("/students")
+    public ResponseEntity<StudentDTO> create(@RequestBody StudentIn studentIn) throws EmptyException {
         return ResponseEntity.ok(service.create(studentIn));
     }
 
@@ -39,7 +38,7 @@ public class StudentController {
     }
 
     @PutMapping("/students/{id}")
-    public ResponseEntity<StudentEntity> edit(@RequestBody StudentIn studentIn, @PathVariable("id") int id) throws NotFoundException {
+    public ResponseEntity<StudentDTO> edit(@RequestBody StudentIn studentIn, @PathVariable("id") int id) throws NotFoundException {
         return ResponseEntity.ok(service.edit(studentIn, id));
     }
 }
