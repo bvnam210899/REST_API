@@ -1,44 +1,43 @@
-package com.example.student_manager.model.entity;
+package com.example.student_manager.models.entities;
 
+import com.sun.istack.NotNull;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table
-public class StudentDTO {
+@Table(name = "studentDTO")
+public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @NotNull
     private String name;
 
-    @Column
-    private Date birthday;
+    private LocalDate birthday;
 
-    @Column
     private String address;
 
-    @Column
     private String phone_number;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "class_id")
     @NotFound(action = NotFoundAction.IGNORE)
-    private ClassDTO classDTO;
+    private ClassEntity classEntity;
 
-    public ClassDTO getClassDTO() {
-        return classDTO;
+    public ClassEntity getClassDTO() {
+        return classEntity;
     }
 
-    public void setClassDTO(ClassDTO classDTO) {
-        this.classDTO = classDTO;
+    public void setClassDTO(ClassEntity classEntity) {
+        this.classEntity = classEntity;
     }
 
-    public StudentDTO () {
+    public StudentEntity() {
     }
 
     public int getId() {
@@ -57,11 +56,11 @@ public class StudentDTO {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

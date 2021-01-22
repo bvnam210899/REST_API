@@ -1,26 +1,26 @@
-package com.example.student_manager.model.entity;
+package com.example.student_manager.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table
-public class ClassDTO {
+public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "classDTO",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "classEntity")
     @JsonIgnore
-    private List<StudentDTO> studentDTOS = new ArrayList<>();
+    private List<StudentEntity> studentEntities = new ArrayList<>();
 
-    public ClassDTO () {
+    public ClassEntity() {
     }
 
     public int getId() {

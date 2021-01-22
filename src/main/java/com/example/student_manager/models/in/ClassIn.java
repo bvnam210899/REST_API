@@ -1,4 +1,4 @@
-package com.example.student_manager.model.in;
+package com.example.student_manager.models.in;
 
 public class ClassIn {
     private String name;

@@ -1,26 +1,28 @@
-package com.example.student_manager.model.in;
+package com.example.student_manager.models.in;
 
-import com.example.student_manager.model.entity.ClassDTO;
+import com.example.student_manager.models.entities.ClassEntity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class StudentIn {
+
     private String name;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     private String address;
 
     private String phone_number;
 
-    private ClassDTO classDTO;
+    private ClassEntity classEntity;
 
-    public ClassDTO getClassDTO() {
-        return classDTO;
+    public ClassEntity getClassEntity() {
+        return classEntity;
     }
 
-    public void setClassDTO(ClassDTO classDTO) {
-        this.classDTO = classDTO;
+    public void setClassDTO(ClassEntity classEntity) {
+        this.classEntity = classEntity;
     }
 
     public StudentIn() {
@@ -34,11 +36,11 @@ public class StudentIn {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
