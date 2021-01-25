@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ClassMappers {
-    public List<ClassDTO> toClassDTO(List<ClassEntity> classEntities) {
+    public static List<ClassDTO> toClassDTO(List<ClassEntity> classEntities) {
         return classEntities.stream()
                 .map(s -> {
                     ClassDTO classDTO = new ClassDTO();
@@ -19,19 +19,19 @@ public class ClassMappers {
                 })
                 .collect(Collectors.toList());
     }
-    public ClassDTO toClassDTO(ClassEntity classEntity) {
+    public static ClassDTO toClassDTO(ClassEntity classEntity) {
         ClassDTO classDTO = new ClassDTO();
         classDTO.setName(classEntity.getName());
         return classDTO;
     }
 
-    public ClassEntity toClassDTO(ClassIn classIn) {
+    public static ClassEntity toClassDTO(ClassIn classIn) {
         ClassEntity classEntity = new ClassEntity();
         classEntity.setName(classIn.getName());
         return classEntity;
     }
 
-    public ClassEntity toClassDTO(ClassIn classIn, int id) {
+    public static ClassEntity toClassDTO(ClassIn classIn, int id) {
         ClassEntity classEntity = new ClassEntity();
         classEntity.setId(id);
         classEntity.setName(classIn.getName());

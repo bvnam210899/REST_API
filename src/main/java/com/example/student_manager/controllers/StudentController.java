@@ -21,8 +21,8 @@ public class StudentController {
     }
 
     @GetMapping("/classes/{id}/students")
-    public ResponseEntity<List<StudentDTO>> getByClassId(@PathVariable("id") int id) {
-        return ResponseEntity.ok(service.getByID(id));
+    public ResponseEntity<?> getByClassId(@PathVariable("id") int id) {
+        return service.getByID(id);
     }
 
     @PostMapping("/students")
@@ -31,8 +31,8 @@ public class StudentController {
     }
 
     @DeleteMapping("/students/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") int id) {
-        return ResponseEntity.ok(service.delete(id));
+    public ResponseEntity<?> delete(@PathVariable("id") int id) {
+        return service.delete(id);
     }
 
     @PutMapping("/students/{id}")

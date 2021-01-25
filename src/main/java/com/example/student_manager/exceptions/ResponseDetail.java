@@ -2,19 +2,19 @@ package com.example.student_manager.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class ErrorDetails <T> {
+public class ResponseDetail<T> {
     private HttpStatus httpStatus;
 
     private String message;
 
     private T data;
 
-    public ErrorDetails(HttpStatus httpStatus, String message) {
+    public ResponseDetail(HttpStatus httpStatus, String message) {
         this.httpStatus = httpStatus;
         this.message = message;
     }
 
-    public ErrorDetails(HttpStatus httpStatus, String message, T data) {
+    public ResponseDetail(HttpStatus httpStatus, String message, T data) {
         this.httpStatus = httpStatus;
         this.message = message;
         this.data = data;
@@ -28,7 +28,7 @@ public class ErrorDetails <T> {
         this.data = data;
     }
 
-    public ErrorDetails() {
+    public ResponseDetail() {
     }
 
     public HttpStatus getHttpStatus() {

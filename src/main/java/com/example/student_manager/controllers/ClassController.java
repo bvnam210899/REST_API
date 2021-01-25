@@ -15,7 +15,6 @@ public class ClassController {
 
     @Autowired
     private ClassService service;
-    private Object ClassEntityValidator;
 
     @GetMapping
     public ResponseEntity<List<ClassDTO>> read() {
@@ -23,17 +22,17 @@ public class ClassController {
     }
 
     @PostMapping
-    public ResponseEntity<ClassDTO> create(@RequestBody ClassIn classIn) {
-        return ResponseEntity.ok(service.create(classIn));
+    public ResponseEntity<?> create(@RequestBody ClassIn classIn) {
+        return service.create(classIn);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") int id) {
-        return ResponseEntity.ok(service.delete(id));
+    public ResponseEntity<?> delete(@PathVariable("id") int id) {
+        return service.delete(id);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<ClassDTO> edit(@RequestBody ClassIn classIn, @PathVariable("id") int id) {
-//        return ResponseEntity.ok(service.edit(classIn, id));
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<?> edit(@RequestBody ClassIn classIn, @PathVariable("id") int id) {
+        return service.edit(classIn, id);
+    }
 }

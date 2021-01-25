@@ -9,7 +9,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class StudentMappers {
-    public List<StudentDTO> toStudentDTO(List<StudentEntity> studentEntity) {
+    public static List<StudentDTO> toStudentDTO(List<StudentEntity> studentEntity) {
         return studentEntity.stream()
                 .map(s -> {
                     StudentDTO studentDTO = new StudentDTO();
@@ -25,7 +25,7 @@ public class StudentMappers {
                 .collect(Collectors.toList());
     }
 
-    public StudentDTO toStudentDTO(StudentEntity studentEntity) {
+    public static StudentDTO toStudentDTO(StudentEntity studentEntity) {
         StudentDTO studentDTO = new StudentDTO();
 
         studentDTO.setName(studentEntity.getName());
@@ -36,7 +36,7 @@ public class StudentMappers {
         return studentDTO;
     }
 
-    public void mapStudentIn(StudentEntity studentEntity, StudentIn studentIn){
+    public static void mapStudentIn(StudentEntity studentEntity, StudentIn studentIn){
         studentEntity.setName(studentIn.getName());
         studentEntity.setBirthday(studentIn.getBirthday());
         studentEntity.setAddress(studentIn.getAddress());
@@ -44,13 +44,13 @@ public class StudentMappers {
         studentEntity.setClassDTO(studentIn.getClassEntity());
     }
 
-    public StudentEntity toStudentEntity(StudentIn studentIn) {
+    public static StudentEntity toStudentEntity(StudentIn studentIn) {
         StudentEntity studentEntity = new StudentEntity();
         mapStudentIn(studentEntity, studentIn);
         return studentEntity;
     }
 
-    public StudentEntity toStudentEntity(StudentIn studentIn, int id) {
+    public static StudentEntity toStudentEntity(StudentIn studentIn, int id) {
         StudentEntity studentEntity = new StudentEntity();
 
         studentEntity.setId(id);

@@ -11,8 +11,8 @@ public class CustomException {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handlerAllException(Exception ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+        ResponseDetail responseDetail = new ResponseDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        return new ResponseEntity<>(responseDetail, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 
