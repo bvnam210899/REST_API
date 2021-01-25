@@ -10,17 +10,17 @@ public class Response {
         ResponseDetail<Object> responseDetail = new ResponseDetail<>(HttpStatus.OK, StringResponses.SUCCESS, object);
         return ResponseEntity.ok().body(responseDetail);
     }
-    public static ResponseEntity<?> ok() {
+    public static ResponseEntity<ResponseDetail<Object>> ok() {
         ResponseDetail<Object> responseDetail = new ResponseDetail<>(HttpStatus.OK, StringResponses.SUCCESS);
         return ResponseEntity.ok().body(responseDetail);
     }
 
-    public static ResponseEntity<?> badRequest(String message) {
+    public static ResponseEntity<ResponseDetail<Object>> badRequest(String message) {
         ResponseDetail<Object> responseDetail = new ResponseDetail<>(HttpStatus.BAD_REQUEST, message);
         return ResponseEntity.badRequest().body(responseDetail);
     }
 
-    public static ResponseEntity<?> badRequest(Object object) {
+    public static ResponseEntity<ResponseDetail<Object>> badRequest(Object object) {
         ResponseDetail<Object> responseDetail = new ResponseDetail<>(HttpStatus.BAD_REQUEST, StringResponses.ID_NOT_VALID, object);
         return ResponseEntity.ok().body(responseDetail);
     }

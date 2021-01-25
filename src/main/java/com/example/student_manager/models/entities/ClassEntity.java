@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "class_entity")
 public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "classEntity")

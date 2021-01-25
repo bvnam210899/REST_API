@@ -14,7 +14,6 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
     private String name;
 
     private LocalDate birthday;
