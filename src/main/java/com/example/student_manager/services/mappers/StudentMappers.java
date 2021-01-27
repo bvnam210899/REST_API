@@ -5,11 +5,10 @@ import com.example.student_manager.models.entities.StudentEntity;
 import com.example.student_manager.models.in.StudentIn;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class StudentMappers {
-    public static List<StudentDTO> toStudentDTO(List<StudentEntity> studentEntity) {
+    public List<StudentDTO> mapToStudentDTO(List<StudentEntity> studentEntity) {
         return studentEntity.stream()
                 .map(s -> {
                     StudentDTO studentDTO = new StudentDTO();
@@ -18,44 +17,41 @@ public class StudentMappers {
                     studentDTO.setAddress(s.getAddress());
                     studentDTO.setBirthday(s.getBirthday());
                     studentDTO.setPhone_number(s.getPhone_number());
-                    studentDTO.setClassEntity(s.getClassDTO());
-
+                    studentDTO.setClass_id(s.getClass_id());
+                    studentDTO.setClass_name(s.getClass_name());
                     return studentDTO;
                 })
                 .collect(Collectors.toList());
     }
 
-    public static StudentDTO toStudentDTO(StudentEntity studentEntity) {
+    public StudentDTO mapToStudentDTO(StudentEntity studentEntity) {
         StudentDTO studentDTO = new StudentDTO();
-
         studentDTO.setName(studentEntity.getName());
         studentDTO.setBirthday(studentEntity.getBirthday());
         studentDTO.setAddress(studentEntity.getAddress());
         studentDTO.setPhone_number(studentEntity.getPhone_number());
-
         return studentDTO;
     }
 
-    public static void mapStudentIn(StudentEntity studentEntity, StudentIn studentIn){
+    public void mapStudentEntityToStudentEntity(StudentEntity studentEntity, StudentIn studentIn){
         studentEntity.setName(studentIn.getName());
         studentEntity.setBirthday(studentIn.getBirthday());
         studentEntity.setAddress(studentIn.getAddress());
         studentEntity.setPhone_number(studentIn.getPhone_number());
-        studentEntity.setClassDTO(studentIn.getClassEntity());
+        studentEntity.setStatus(studentIn.isStatus());
+        studentEntity.setClass_id(studentIn.getClass_id());
     }
 
-    public static StudentEntity toStudentEntity(StudentIn studentIn) {
+    public StudentEntity mapToStudentEntity(StudentIn studentIn) {
         StudentEntity studentEntity = new StudentEntity();
-        mapStudentIn(studentEntity, studentIn);
+        mapStudentEntityToStudentEntity(studentEntity, studentIn);
         return studentEntity;
     }
 
-    public static StudentEntity toStudentEntity(StudentIn studentIn, int id) {
+    public StudentEntity mapToStudentEntity(StudentIn studentIn, int id) {
         StudentEntity studentEntity = new StudentEntity();
-
         studentEntity.setId(id);
-        mapStudentIn(studentEntity, studentIn);
-
+        mapStudentEntityToStudentEntity(studentEntity, studentIn);
         return studentEntity;
     }
 }

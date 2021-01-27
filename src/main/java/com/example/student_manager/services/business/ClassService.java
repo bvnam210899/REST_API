@@ -8,7 +8,6 @@ import com.example.student_manager.models.in.ClassIn;
 import com.example.student_manager.repositories.ClassRepository;
 import com.example.student_manager.services.mappers.ClassMappers;
 import com.example.student_manager.services.validators.ClassEntityValidator;
-import com.example.student_manager.untils.StringResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,49 +18,45 @@ import java.util.List;
 public class ClassService {
     @Autowired
     private ClassRepository repository;
+    private final ClassMappers classMappers = new ClassMappers();
 
-//    public List<ClassDTO> read() {
-//        List<ClassEntity> classEntities = repository.findAll();
-//        return ClassMappers.toClassDTO(classEntities);
-//    }
-
-    public ResponseEntity<ResponseDetail<Object>> read() {
+    public ResponseEntity<ResponseDetail<List<ClassDTO>>> read() {
         List<ClassEntity> classEntities = repository.findAll();
-        List<ClassDTO> classDTOS = ClassMappers.toClassDTO(classEntities);
+        List<ClassDTO> classDTOS = classMappers.toClassDTO(classEntities);
         return Response.ok(classDTOS);
     }
 
-    public ResponseEntity<ResponseDetail<Object>> create(ClassIn classIn) {
-        ResponseEntity<ResponseDetail<Object>> validate = ClassEntityValidator.validateClass(classIn);
+    public ResponseEntity<ResponseDetail<ClassDTO>> create(ClassIn classIn) {
+        ResponseEntity<ResponseDetail<ClassDTO>> validate = ClassEntityValidator.validateClass(classIn);
         if (!validate.getStatusCode().is2xxSuccessful())
             return validate;
 
-        ClassEntity classEntity = ClassMappers.toClassDTO(classIn);
+        ClassEntity classEntity = classMappers.toClassDTO(classIn);
         classEntity = repository.save(classEntity);
-        ClassDTO classDTO = ClassMappers.toClassDTO(classEntity);
+        ClassDTO classDTO = classMappers.toClassDTO(classEntity);
         return Response.ok(classDTO);
     }
 
-    public ResponseEntity<ResponseDetail<Object>> delete(int id) {
+    public ResponseEntity<ResponseDetail<ClassDTO>> delete(int id) {
         ClassEntity classEntity = repository.findById(id).orElse(null);
         if(classEntity == null) {
-            return Response.badRequest(StringResponses.ID_NOT_VALID);
+            return Response.badRequest();
         }
         repository.delete(classEntity);
         return Response.ok();
     }
 
-    public ResponseEntity<ResponseDetail<Object>> edit(ClassIn classIn, int id) {
+    public ResponseEntity<ResponseDetail<ClassDTO>> edit(ClassIn classIn, int id) {
         ClassEntity classEntity = repository.findById(id).orElse(null);
         if(classEntity == null) {
-            return Response.badRequest(StringResponses.ID_NOT_VALID);
+            return Response.badRequest();
         }
-        ResponseEntity<ResponseDetail<Object>> validate = ClassEntityValidator.validateClass(classIn);
+        ResponseEntity<ResponseDetail<ClassDTO>> validate = ClassEntityValidator.validateClass(classIn);
         if (!validate.getStatusCode().is2xxSuccessful())
             return validate;
-        classEntity = ClassMappers.toClassDTO(classIn, id);
+        classEntity = classMappers.toClassDTO(classIn, id);
         classEntity = repository.save(classEntity);
-        ClassDTO classDTO = ClassMappers.toClassDTO(classEntity);
+        ClassDTO classDTO = classMappers.toClassDTO(classEntity);
 
         return Response.ok(classDTO);
     }

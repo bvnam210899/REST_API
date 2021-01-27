@@ -1,7 +1,5 @@
 package com.example.student_manager.models.dto;
 
-import com.example.student_manager.models.entities.ClassEntity;
-
 import java.time.LocalDate;
 
 public class StudentDTO {
@@ -15,17 +13,21 @@ public class StudentDTO {
 
     private String phone_number;
 
-    private ClassEntity classEntity;
+    private int class_id;
 
-    public StudentDTO() {
-    }
+    private String class_name;
 
-    public StudentDTO(int id, String name, LocalDate birthday, String address, String phone_number) {
+    public StudentDTO(int id, String name, LocalDate birthday, String address, String phone_number, int class_id, String class_name) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.address = address;
         this.phone_number = phone_number;
+        this.class_id = class_id;
+        this.class_name = class_name;
+    }
+
+    public StudentDTO() {
     }
 
     public int getId() {
@@ -68,11 +70,19 @@ public class StudentDTO {
         this.phone_number = phone_number;
     }
 
-    public ClassEntity getClassEntity() {
-        return classEntity;
+    public int getClass_id() {
+        return class_id;
     }
 
-    public void setClassEntity(ClassEntity classEntity) {
-        this.classEntity = classEntity;
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
+    }
+
+    public String getClass_name() {
+        return class_name;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public class StudentInValidator {
 
-    public static ResponseEntity<ResponseDetail<Object>> validateStudent(StudentIn studentIn) {
+    public static<T> ResponseEntity<ResponseDetail<T>> validateStudent(StudentIn studentIn) {
         if (studentIn.getName() == null)
             return Response.badRequest(StringResponses.NAME_IS_NULL);
 
