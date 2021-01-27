@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "class_entity")
+@Table
 public class ClassEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +16,7 @@ public class ClassEntity {
 
     private String name;
 
-    @OneToMany(mappedBy = "classEntity")
-    @JsonIgnore
-    private List<StudentEntity> studentEntities = new ArrayList<>();
+    private boolean status;
 
     public ClassEntity() {
     }
@@ -37,5 +35,13 @@ public class ClassEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

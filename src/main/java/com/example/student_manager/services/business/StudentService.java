@@ -20,61 +20,61 @@ public class StudentService {
 
     @Autowired
     private StudentRepository repository;
+    private final StudentMappers studentMappers = new StudentMappers();
 
-//    public List<StudentDTO> read() {
-//        List<StudentEntity> studentEntities = repository.findAll();
-//        return StudentMappers.toStudentDTO(studentEntities);
-//    }
-    public ResponseEntity<ResponseDetail<Object>> read() {
-        List<StudentEntity> studentEntities = repository.findAll();
-        List<StudentDTO> studentDTOS = StudentMappers.toStudentDTO(studentEntities);
+    public ResponseEntity<ResponseDetail<List<StudentDTO>>> read() {
+        List<StudentDTO> studentDTOS = repository.findAllStudentsByStatusIsTrue();
         return Response.ok(studentDTOS);
     }
 
-    public ResponseEntity<ResponseDetail<Object>> create(StudentIn studentIn) {
-        ResponseEntity<ResponseDetail<Object>> validate = StudentInValidator.validateStudent(studentIn);
+//    public ResponseEntity<ResponseDetail<List<StudentDTO>>> read() {
+//        List<StudentEntity> studentEntities = repository.findAllStudent();
+//        List<StudentDTO> studentDTOS = studentMappers.mapToStudentDTO(studentEntities);
+//        return Response.ok(studentDTOS);
+//    }
+
+    public ResponseEntity<ResponseDetail<StudentDTO>> create(StudentIn studentIn) {
+        ResponseEntity<ResponseDetail<StudentDTO>> validate = StudentInValidator.validateStudent(studentIn);
         if (!validate.getStatusCode().is2xxSuccessful())
             return validate;
-
-        StudentEntity studentEntity = StudentMappers.toStudentEntity(studentIn);
+        StudentEntity studentEntity = studentMappers.mapToStudentEntity(studentIn);
         studentEntity = repository.save(studentEntity);
-        StudentDTO studentDTO = StudentMappers.toStudentDTO(studentEntity);
-
+        StudentDTO studentDTO = studentMappers.mapToStudentDTO(studentEntity);
         return Response.ok(studentDTO);
     }
 
-    public ResponseEntity<ResponseDetail<Object>> delete(int id) {
+    public ResponseEntity<ResponseDetail<StudentDTO>> delete(int id) {
         StudentEntity student = repository.findById(id).orElse(null);
         if(student == null) {
-            return Response.badRequest(StringResponses.ID_NOT_VALID);
+            return Response.badRequest();
         }
         repository.delete(student);
         return Response.ok();
     }
 
-    public ResponseEntity<ResponseDetail<Object>> edit(StudentIn studentIn, int id) {
+    public ResponseEntity<ResponseDetail<StudentDTO>> edit(StudentIn studentIn, int id) {
         StudentEntity studentEntity = repository.findById(id).orElse(null);
         if (studentEntity == null)
-            return Response.badRequest(StringResponses.ID_NOT_VALID);
-        ResponseEntity<ResponseDetail<Object>> validate = StudentInValidator.validateStudent(studentIn);
+            return Response.badRequest();
+        ResponseEntity<ResponseDetail<StudentDTO>> validate = StudentInValidator.validateStudent(studentIn);
         if (!validate.getStatusCode().is2xxSuccessful())
             return validate;
-        studentEntity = StudentMappers.toStudentEntity(studentIn, id);
+        studentEntity = studentMappers.mapToStudentEntity(studentIn, id);
         studentEntity = repository.save(studentEntity);
-        StudentDTO studentDTO = StudentMappers.toStudentDTO(studentEntity);
+        StudentDTO studentDTO = studentMappers.mapToStudentDTO(studentEntity);
         return Response.ok(studentDTO);
     }
 
-//    public List<StudentDTO> getByID(int id) {
+//    public ResponseEntity<ResponseDetail<List<StudentDTO>>> getByID(int id) {
 //        List<StudentEntity> studentEntities = repository.findStudentsByClassID(id);
-//        return StudentMappers.toStudentDTO(studentEntities);
+//        if (studentEntities.size() < 1)
+//            return Response.badRequest(StringResponses.ID_NOT_VALID);
+//        List<StudentDTO> studentDTOS = studentMappers.mapToStudentDTO(studentEntities);
+//        return Response.ok(studentDTOS);
 //    }
 
-    public ResponseEntity<ResponseDetail<Object>> getByID(int id) {
-        List<StudentEntity> studentEntities = repository.findStudentsByClassID(id);
-        if (studentEntities.size() < 1)
-            return Response.badRequest(studentEntities);
-        List<StudentDTO> studentDTOS = StudentMappers.toStudentDTO(studentEntities);
+    public ResponseEntity<ResponseDetail<List<StudentDTO>>> getStudentsByID(int id) {
+        List<StudentDTO> studentDTOS = repository.findStudentsInClassByStatusIsTrue(id);
         return Response.ok(studentDTOS);
     }
 }

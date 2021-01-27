@@ -22,18 +22,11 @@ public class StudentEntity {
 
     private String phone_number;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_id")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private ClassEntity classEntity;
+    private boolean status;
 
-    public ClassEntity getClassDTO() {
-        return classEntity;
-    }
+    private int class_id;
 
-    public void setClassDTO(ClassEntity classEntity) {
-        this.classEntity = classEntity;
-    }
+    private String class_name;
 
     public StudentEntity() {
     }
@@ -76,6 +69,30 @@ public class StudentEntity {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
+    }
+
+    public String getClass_name() {
+        return class_name;
+    }
+
+    public void setClass_name(String class_name) {
+        this.class_name = class_name;
     }
 }
 

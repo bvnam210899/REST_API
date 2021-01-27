@@ -15,15 +15,9 @@ public class StudentIn {
 
     private String phone_number;
 
-    private ClassEntity classEntity;
+    private boolean status;
 
-    public ClassEntity getClassEntity() {
-        return classEntity;
-    }
-
-    public void setClassDTO(ClassEntity classEntity) {
-        this.classEntity = classEntity;
-    }
+    private int class_id;
 
     public StudentIn() {
     }
@@ -58,5 +52,21 @@ public class StudentIn {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getClass_id() {
+        return class_id;
+    }
+
+    public void setClass_id(int class_id) {
+        this.class_id = class_id;
     }
 }

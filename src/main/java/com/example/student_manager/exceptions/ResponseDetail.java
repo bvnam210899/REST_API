@@ -20,6 +20,7 @@ public class ResponseDetail<T> {
         this.data = data;
     }
 
+
     public T getData() {
         return data;
     }
